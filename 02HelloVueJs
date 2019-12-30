@@ -42,7 +42,7 @@
       const app = new Vue({ //Vue 注意区分大小写；
         el: '#app', //用于绑定挂载需要管理的元素；
         data: {//定义数据；
-          message: 'HelloVueJs'，
+          message: 'HelloVueJs',
           name: 'VueJS'
         }
       })
