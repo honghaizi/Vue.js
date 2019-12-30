@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HelloVueJs</title>
+    <!-- 
+        编程范式：声明式编程
+          A. Vue 的做法
+            1.创建了一个Vue对象
+            2.创建Vue对象的时候，传入了一些options:{} “对象类型参数”；
+            3.{}中包含了 el 属性：该属性决定了Vue对象挂载到哪一个元素；
+            4.{}中包含了 data 属性：该属性中通常存储一些数据；
+            5.data 属性的数据可以直接手工定义，也可以来之网络或服务器加载。
+          B.更改 message 中的数据为：XXXXX
+            6.直接更改 data 属性中的数据，界面会响应式的更新同步。
+          C.响应式的含义是当数据发生一些变化时界面会自动发生一些响应.
+
+        编程范式：命令式编程
+          A.原生 js 的做法；
+            1.创建 div 元素，设置 id 属性；
+            2.定义一个变量叫 message；
+            3.将 message 变量放在前面的 div 元素中显示；
+          B.更改 message 中的数据为: xxxxxx；
+            4.将更改后的 message 数据，替换掉之前的数据;
+          C.原生 JS 和 JQ不是响应式的，所以需要手动获取替换掉。
+     -->
+
+    <!-- 引用vue.js -->
+    <script src="../lib/vue.js"></script>
+  </head>
+
+  <body>
+    
+    <div>{{message}}</div><!-- 未挂载id，浏览器不认识 -->
+
+    <div id='app'>  <!-- 挂载id，浏览器比你还懂 -->
+      <!-- 要显示的内容放到到插入值表達式中 {{}} -->
+      <h2>{{message}}</h2> 
+      <h1>{{name}}</h1>
+    </div>
+
+    <script>
+      const app = new Vue({ //Vue 注意区分大小写；
+        el: '#app', //用于绑定挂载需要管理的元素；
+        data: {//定义数据；
+          message: 'HelloVueJs'，
+          name: 'VueJS'
+        }
+      })
+    </script>
+
+  </body>
+</html>
