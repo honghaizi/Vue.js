@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-bind动态绑定style(对象语法)</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        多看多敲，心领神会
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <!-- 伪代码语法        
+      <h2 ：style="{key(属性名): vale(属性值)}"> {{message}} </h2>
+      -->
+
+      <!-- 
+          font-size 这种写法必须加单引号，否则浏览器会报错；
+          50px 这种写法也必须加单引号，否者浏览器是当做一个变量去解析；
+          因为浏览器在 vue - Model 层中找不到相关变量所以报错；
+          fontSize 驼峰写法可以直接写，不用加单引号；
+       -->
+      <h2 :style="{'font-size': '50px'}"> {{message}} </h2>
+      <h2 :style="{fontSize: '50px'}"> {{message}} </h2>
+
+      <!-- 代码演示 -->
+      <h2 :style="{fontSize: styleSize + 'px', color: styleColor}">{{message}}</h2>
+
+      <h2 :style='getStyles()'>{{message}}</h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+           /*
+            styleSize: '100px'  必须加单引号，
+            外部标签通过字符串拼接 + "px"；
+          */
+          styleSize: 100,
+          styleColor: 'red'
+        },
+        methods: {
+          getStyles: function() {
+            return {fontSize: this.styleSize + 'px', color: this.styleColor}
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
