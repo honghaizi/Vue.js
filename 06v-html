@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-html</title>
+    <!-- 
+        v-html 后面往往跟一个 string 类型，字符串类型；
+        v-html 解析数据中 string 类型，解析出来并进行运行渲染。
+     -->
+     <script src="lib/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>{{url}}</h2> <!-- 这样直接打印出来是字符串，error -->
+
+      <!-- “你好呀！” 会直接被 “url” 数据给覆盖； -->
+      <h2 v-html='url'>你好呀！</h2>
+
+      <h2 v-html='url'></h2> <!-- 正常输出 -->
+    </div>
+
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data:{
+          message: '我路过',
+          url: '<a href="https://www.bilibili.com/">bilibili ~</a>'
+        }
+      })
+    </script>
+  </body>
+</html>
