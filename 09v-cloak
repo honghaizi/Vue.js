@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-cloak</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        v-cloak 该属性可以覆盖隐藏掉未正常加载编译的 mustache 标签；
+        mustache 标签正常加载成功后会自动结束关掉 v-cloak
+        setTimeout 设置延时加载（剧情需要）
+     -->
+
+     <style>
+       [v-cloak] {
+        display: none;
+       }
+     </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- message 如果没有正常输出，v-cloak就会使用样式隐藏掉标签内容 -->
+      <h2 v-cloak>Hello {{message}}</h2>
+      <h2 v-cloak='message'></h2> <!-- 这个是错误的写法 不会输出 -->
+    </div>
+    
+    <script>
+      setTimeout(() => {
+        const app = new Vue({
+        el: '#app',
+        data: {
+          message: 'heiheihei'
+        }
+      })
+    }, 2000)
+    </script>
+  </body>
+</html>
