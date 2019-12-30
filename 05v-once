@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-once</title>
+    <!-- 
+        v-once 指令后面不需要跟任何表达式(比如 v-for=() 后面是跟表达式的)；
+        v-once 指令表示元素和组件，只渲染一次，不会随着数据的改变而改变。
+     -->
+    <script src="lib/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>{{message}}</h2>
+      <h2 v-once>{{message}}</h2>
+    </div>
+
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: '嘿嘿嘿 我是 v-once 我只改變一次 第二次不會改變!'
+        }
+      })
+    </script>
+  </body>
+</html>
