@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-bind</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        v-bind 用于绑定一个或多个属性值，或者向另一个组件传递 props 值
+        在开发中，又那些属性需要动态进行绑定呢？
+        图片的链接src、网站的链接href、动态绑定一些类，样式等等。
+        语法糖：  v-bind:xxx    :xxx
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2> {{message}} </h2>
+      <img v-bind:src="imgURL" alt="">
+      <a :href="aHref">VueJS官網</a>
+    </div>
+
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          imgURL: 'https://cn.vuejs.org/images/logo.png',
+          aHref: 'https://cn.vuejs.org/'
+        }
+      })
+    </script>
+  </body>
+</html>
