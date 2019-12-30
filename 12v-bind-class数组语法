@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-bind-class数组语法</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        数组语法的含义是:class后面跟的是一个数组；
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2 :class='[active, line]'>{{message}}</h2>
+      <h2 :class='getClasses()'>{{message}}</h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          active: 'aaaaaa',
+          line: 'bbbbbb'
+        }，
+        methods: {
+          getClasses: function(){
+            return [this.active, this.line]
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
