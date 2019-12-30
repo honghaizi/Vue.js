@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-pre</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        v-pre 用域跳过主元素和它子元素的编译过程
+        用于实现原本的 mustache 语法。
+     -->
+  </head>
+
+  <body>
+    <div id="app">
+      <h2> {{message}} </h2>
+      <h2 v-pre> {{message}} </h2>
+    </div>
+
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: '嘿嘿嘿'
+        }
+      })
+    </script>
+  </body>
+</html>
