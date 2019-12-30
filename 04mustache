@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mustache 插入值表达式{{}}</title>
+    <!-- 
+        Mustache {{}}， 中文名：插入值表达式；
+        插入值表达式里面的数据是什么类型，就可以做
+        什么类型的表达式操作。
+     -->
+    <meta charset="utf-8">
+    <script src='../lib/vue.js'></script>
+  </head>
+
+  <body>
+
+    <div id="whh">
+      <h2>{{message}}</h2> <!-- 普通的插入值表达式 -->
+      <h2>{{message}}, 我是插入值表达式</h2> <!-- 可行 -->  
+      <h2>{{firstName + lastName}}</h2> <!-- 字符串拼接后输出 -->
+      <h2>{{firstName}} + {{lastName}}</h2> <!-- 与上相同 -->
+      <h2>{{firstName + ' ' + lastName}}</h2>  
+      <h2>{{counter * 2}}</h2> <!-- 可行 -->
+    </div>
+
+    <script>
+      const whh = new Vue({
+        el: '#whh',
+        data: {
+          message: '嘿嘿嘿',
+          firstName: 'Jiang',
+          lastName: 'Rui',
+          counter: 100
+        }
+      })
+    </script>
+  </body>
+</html>
