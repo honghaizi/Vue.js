@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Let 块级作用域</title>
+    <title>let 块级作用域</title>
     <!--
         let / var
         ES5 中的 var 是没有块级作用域的（if语句和for语句）
