@@ -1,0 +1,89 @@
+<DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Let 块级作用域</title>
+    <!--
+        let / var
+        ES5 中的 var 是没有块级作用域的（if语句和for语句）
+        ES6 中的 let 是有块级作用域的（if语句和for语句）
+
+        ES5 之前因为 if 和 for 都没有块级作用域的概念，所以很多时候，
+        都必须借助于 function(闭包操作) 的作用域来解决应用外面变量的问题。
+
+        ES6中加入了 let ， let 它是有 if 和 for 的块级作用域。
+     -->
+
+  </head>
+
+  <body>
+
+      <button>按钮0</button>
+      <button>按钮1</button>
+      <button>按钮2</button>
+      <button>按钮3</button>
+
+      <script>
+        // 1. 变量作用域
+        // ES6 之前没有任何作用域概念，所以变量在任何范围可用
+        
+        /*{
+          var name = 'why';
+          console.log(name);
+
+        }
+        console.log(name); 没有作用域，所以这里可以输出*/
+
+
+        //2. 没有块级作用域引起的问题： if块级
+        //没有作用域的概念，所以该代码实例可以在任何地方以“最后赋值”为输出结果；
+        
+        /*var func;
+        if (true) {
+          var name = 'why'; //因为没有作用域这里的值已经被最后的赋值操作给覆盖了
+          func = function(){
+            console.log(name);
+          }
+        }
+        name = 'kobe'; 
+        func(); 调用方法*/
+
+
+        //3. 没有块级作用域引起的问题： for的块级
+        //没有作用域概念，所以该代码实例可以任何地方以“最后赋值”为输出结果；
+        
+        var btns = document.getElementsByTagName('button');
+        for (var i = 0; i < btns.length; i++){
+          btns[i].addEventListener('click',function(){
+            console.log('没有作用域 第' + i + '个按钮被点击');
+          })
+        }
+
+
+        //4. ES5之前实现作用域的闭包操作、
+        //使用闭包来达到作用域的效果，“函数方法内本身自有作用域”；
+        var btns = document.getElementsByTagName('button');
+        for (var i = 0; i < btns.length; i++){
+          (function (i){
+            btns[i].addEventListener('click',function(){
+              console.log('我是闭包操作, 第' + i + "个按钮被点击！");
+            })
+          })(i)
+        }
+
+
+        // ES6语法 let 作用域的变量；
+        var btns = document.getElementsByTagName('button');
+        for (let i = 0; i < btns.length; i++){
+          btns[i].addEventListener('click', function(){
+            console.log('let作用域 第' + i + '个按钮被点击~');
+          })
+        }
+
+
+
+      </script>
+    
+  </body>
+
+</html>
