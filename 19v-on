@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-on 基本使用</title>
+    <script src="lib/vue.js"></script>
+    <!-- v-on
+        作用: 绑定事件监听器
+        语法糖: @
+        参数: event
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2>点击次数 {{counter}} </h2>
+
+      <!-- 普通写法 - 语法糖 -->
+      <button v-on:click="addClick">点击按钮1</button>
+      <button @click="subClick">点击按钮2</button>
+
+      <!-- 简单的写法 -->
+      <button v-on:click="counter++">点击按钮3</button>
+      <button @click="counter--">点击按钮4</button>
+    </div>
+    
+    <script>
+      let axx = new Vue({
+        el: "#axx",
+        data: {
+          counter: 0
+        },
+        methods: {
+          addClick() {
+            this.counter++
+          },
+          subClick() {
+            this.counter--
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
