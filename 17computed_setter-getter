@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>computed_setter-getter</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        computed_setter-getter 内部代码模拟
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2> {{message}} </h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          firstName: 'Zhishan',
+          lastName: 'Shangshan',
+        },
+        computed: {
+          // 定义属性 - 完整的计算属性写法如下
+          fullName: {
+            //实现 set 需要接受传递过来的参数
+            set: function(newValue){
+              console.log('此方法又被调用');
+              //split 方法用域把一个字符串分割成字符串数组
+              const name = newValue.split(' ');
+              //获取数组中的值，赋值到对应的属性中
+              this.firstName = names[0];
+              this.lastName = names[1];
+            },
+            get: function() {
+              return this.firstName + ' ' + this.lastName
+            }
+          },
+
+          // 计算属性一般没有 set 方法，没有set一下为 “只读属性”
+          fullName2: {
+            get: function() {
+              return this.firstName + ' ' + this.lastName
+            }
+          },
+
+          // 计算属性最简单的方法，其实就是两个简洁的属性
+          fullName3: function() {
+            return this.firstName + ' ' +  this.lastName
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
