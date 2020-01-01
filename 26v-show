@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-show</title>
+    <script src="lib/vue.js"></script>
+    <!-- v-show 和 v-if 的区别
+        v-show 和 v-if 都可以决定一个元素是否渲染，那么开发中如何选择呢？
+        v-if 当条件为 false 时，压根不会有对应的元素在 DOM 中，（虚拟 DOM 讲 v-if 中的元素包括子元素删除掉，在为 true 时，重新创建）
+        v-show 当条件为 false 时，仅仅将元素的 display 属性设置为 none 而已，(虚拟 DOM 将在 v-show 中的元素添加一个 display属性，当为 true DOM 就会删除 display属性，留下一个孤独的 style 属性名)。
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2 v-if='isShow' id='aaa'> {{message}} </h2>
+      <h2 v-show='isShow' id="bbb"> {{message}} </h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          isShow: true
+        }
+      })
+    </script>
+  </body>
+</html>
