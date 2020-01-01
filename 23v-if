@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-if</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        v-if v-else-if v-else
+        这三个指令与 JS 的条件语句if、else、else if类似；
+        Vue的条件指令可以根据表达式的值在DOM中渲染或销毁元素或组件
+
+        v-if的原理
+        v-if后面的条件为 false 时，对应的元素以及其子元素不会被渲染；
+        也就是根本没有不会对应的标签出现在DOM中。
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2 v-if='isShow'> 
+        {{message}} 
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          isShow: true
+        }
+      })
+    </script>
+  </body>
+</html>
