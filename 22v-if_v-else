@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>if else</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        逻辑复杂的if else建议在 计算属性中定义；
+        if else 就两种情况建议考虑使用
+          一次性操作
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2 v-if='score>=90'>优秀</h2>
+      <h2 v-else-if='score>=80'>良好</h2>
+      <h2 v-else-if='score>=60'>及格</h2>
+      <h2 v-else>GG</h2>
+
+      <h1>{{result}}</h1>
+
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          score: 0
+        },
+        //计算属性
+        computed: {
+          result() {
+            let showMessage="";
+            if (this.score >= 90) {
+              showMessage = '优秀';
+            }else if (this.score >= 80) {
+              showMessage = '良好';
+            }else if (this.score >= 60) {
+              showMessage = '及格'
+            } else {
+              showMessage = 'GGGGGG'
+            }
+            return showMessage;
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
