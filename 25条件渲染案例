@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>条件渲染案例</title>
+    <script src="lib/vue.js"></script>
+    <!-- 条件渲染案例
+        用户在登陆时，可以切换使用账号登陆还是邮箱地址登陆
+
+        label 元素定义标注(标记)；
+        placeholder 输入框显示 占位文字；
+
+        案例小问题
+        如果在有输入内容的情况下，切换了类型，可以发现文字依然显示之前输入的内容；
+        但是按道理讲，你跟女人讲道理？代码...哦 对。 应该切换到另外一个input元素中了；
+        在另一个input元素中，并没有输入内容；
+        为什么出现这个问题呢？
+
+        问题解答：
+        这个是代码不是女人，请同学回过神；
+        这是因为Vue在进行DOM(虚拟DOM)渲染时，处于性能考虑，会尽可能的复用已经存在的元素，而不是重新创建新的元素；
+        在案例中，Vue 内部会发现原来的 input 元素不再使用，直接作为 else 中的 input 来使用了。
+
+        解决方案
+        忘掉女人，如果我们不希望Vue出现类似重复利用的问题，可以给对应的 input 添加 key；并且需要保证 key 的不同，只有这种情况下， Vue dom 操作的时候才不会复用。
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <span v-if='isUser'>
+        <label for='username'>用户账号登陆</label>
+        <input type="text" id="username" placeholder="用户账号登陆" key='username'>
+      </span>
+      <span v-else>
+        <label for='useremail'>用户邮箱登陆</label>
+        <input type="text" id='useremail' placeholder="用户邮箱登陆" key='useremail'>
+      </span>
+      <button @click='isUser =! isUser'>切换登陆方式</button>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          isUser: true
+        }
+      })
+    </script>
+  </body>
+</html>
