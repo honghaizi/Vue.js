@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>computed</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        计算属性 computed
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <!-- 将两个字符串拼接上，并且种键有空格隔开
+          Vue 的传统方法，是可以做到，但是一旦数据多了
+          就不美观了，代码不易看。        
+       -->
+      <h2> {{firstName + ' ' + lastName}} </h2>
+      <h2> {{firstName}} {{lastName}} </h2>
+
+      <!--使用 Vue 中的方法来实习 
+          相对于上面的方法好一点，阅读性好一点；
+          不好的地方是{{方法}}一般里面都是写的变量名{{变量名}}
+       -->
+       <h2>{{getFullName()}}</h2>
+
+       <!-- 
+            计算机属性： computed；
+            computed 不需要后面跟 "()".
+        -->
+        <h2>{{fullName}}</h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          firstName: 'ZhangShan',
+          lastName: 'XiaoLi'
+        },
+        methods: {
+          getFullName() {
+            return this.firstName + ' ' + this.lastName
+          }
+        },
+        computed: {
+          fullName() {
+            return this.firstName + ' ' + this.lastName
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
