@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-on 参数的问题</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        当通过 methods 定义方法，以供 @click 调用时，需要注意参数问题；
+        情况一: 如果该方法不需要额外参数，那么方法后的()可以不添加；
+        情况二: 如果需要同时传入某个参数，同时需要 event 时，可以通过 $event。
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <!--情况一: 事件调用的方法没有参数 
+          两个写法一样，没有区别，可以有（）也可以省略掉
+       -->
+       <button @click='btn1Click01'>按钮1.0</button>
+       <button @click='btn1Click01()'>按钮1.1</button>
+
+
+
+       <!-- 在事件定义时，些函数时省略了小括号，但是参数本身需要一个参数
+    -->
+    <button @click='btn2Click02()'>按钮2.0</button>
+    <!-- 函数需要传递参数，但是没有传入，那么你懂的！
+        一旦在页面上做一些操作，不管是点击操作或者是鼠标移动操作，
+        或者是电拖操作等，一旦做了这些操作的时候，浏览器会自动生
+        成一个对象“event”对象；
+        在事件定义时，些方法时省略了小括号，但参数本身需要一个参数的，这个时候，vue会默认将浏览器产生的 event 事件对象作为参数传入到方法。
+     -->
+     <!-- 函数需要传递参数，但是没有传入，并且把括号丢了 -->
+     <button @click='btn2Click02'>按钮2.1</button>
+
+
+
+     <!-- 方法定义时，需要 event 对象，同时需要其它参数 -->
+     <button @click="btn3Click03">按钮3.1</button>
+
+     <!-- btn3Click03(123, event) 报错找不到 event，因为当成变量了 找不到该变量 -->
+     <button @click="btn3Click03(123, event)">按钮3.2</button>
+
+     <!-- 情况二: 调用方式，如果手动的获取收到浏览器参数event对象: $event -->
+     <button @click="btn3Click03(123, $event)">按钮3.3</button>
+
+    </div>        
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿'
+        },
+        methods: {
+          btn1Click01() {
+            console.log('按钮 1');
+          },
+          btn2Click02(abc) {
+            console.log('按钮 2', abc);
+          },
+          btn3Click03(abc, event) {
+            console.log("按钮 3", abc, event);
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
