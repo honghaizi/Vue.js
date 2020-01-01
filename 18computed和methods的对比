@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>computed和methods的对比</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        computed和methods的对比
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <!-- 1.直接拼接： 语法过于繁琐 -->
+      <h2>{{firstName}} {{lastName}}</h2>
+
+      <!-- 
+          2.通过自定 methods
+          methods 后台不会做缓存，每次调用都会使用方法计算一次；
+          methods 定义的方法如果视图层数据过多，不易使用，会降低效率；
+          控制台输出为： 4次；
+       -->
+      <h2>{{getFullName()}}</h2>
+      <h2>{{getFullName()}}</h2>
+      <h2>{{getFullName()}}</h2>
+      <h2>{{getFullName()}}</h2>
+
+      <!-- 
+          3.通过自定 computed
+          computed 方法浏览器第一次加载后会做缓存，每次调用方法的时候直接从缓存中获取；
+          computed 前端数据多次调用的方法不变，可以有限考虑使用；
+          控制台输出为： 1次;
+       -->
+       <h2>{{fullName}}</h2>
+       <h2>{{fullName}}</h2>
+       <h2>{{fullName}}</h2>
+       <h2>{{fullName}}</h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          firstName: 'Zhishan',
+          lastName: 'Shangshan',
+        },
+        methods: {
+          getFullName: function() {
+            console.log('getFullName');
+            return this.firstName + ' ' + this.lastName
+          }
+        },
+        computed: {
+          fullName: function() {
+            console.log('fullName');
+            return this.firstName + ' ' + this.lastName
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
