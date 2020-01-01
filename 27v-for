@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-for遍历数组</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        v-for 的语法类似于 JS 中的 for 循环；
+        格式如下: item in items 的形式；
+        item items 可以更改，但是 in 不能。
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <!-- 1. 在遍历的过程中，没有使用索引值(下标) -->
+      <ul>
+        <li v-for='items in names'> {{items}}</li>
+      </ul>
+
+      <!-- 2. 在遍历过程中，获取索引值 -->
+      <ul>
+        <li v-for="(items, index) in names">{{index}} ,{{items}}</li>
+      </ul>
+  
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          names: ['校长','学生','老师','领导']
+        }
+      })
+    </script>
+  </body>
+</html>
