@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>computed 复杂操作</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        computed 复杂操作
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2> 书籍的总价格：{{totalprice}} </h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          books: [
+            {id: 110, name: 'JavaScript 权威指南', price: 118},
+            {id: 111, name: '代码大全', price: 105},
+            {id: 112, name: '深入理解计算机原理', price: 98},
+            {id: 113, name: '现代操作系统', price: 87}
+          ]
+        },
+        // methods 调用几次，就执行几次，没有缓存，这种重复计算不适合；
+        // computed 执行一次 有缓存 可重复调用 适合；
+        computed: {
+          totalprice: function(){
+            let result = 0;
+            for (let i = 0; i < this.books.length; i++){
+              result += this.books[i].price
+            }
+            return result
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
