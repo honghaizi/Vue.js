@@ -5,7 +5,6 @@
     <script src="lib/vue.js"></script>
     <!-- 
         逻辑复杂的if else建议在 计算属性中定义；
-        if else 就两种情况建议考虑使用
      -->
   </head>
 
