@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-on的修饰符</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        v-on的修饰符
+        某些情况拿到 event 进行一些事件处理；
+        Vue提供了修饰符来帮助方便的处理一些事情；
+        .stop - 调用 event.stopPropagation();
+        .prevent - 调用 event.preventDefault();
+        .{keyCode | keyAlias} - 只当时间是从特定建出发时才能出发回调；
+        .native - 监听组件根元素的原生事件；
+        .once - 只出发一次回调。
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <!-- 1.阻止事件冒泡 @click.stop
+        实现点击 divClick 输出 divClick，点击 btnClick 输出 btnClick；
+        默认没有 .stop 的情况下，当点击按钮会触发 btnClick divClick同时输出。
+       -->
+      <div @click='btnClick'>
+        点击触发 btnClick，我是 div这边的；
+        <button @click.stop>ws按钮？</button>
+      </div>
+      <br/>
+
+
+      <!--2.  .prevent修饰符的使用是拦截默认事件；
+                passive是不拦截默认事件；
+                提交事件触发，然后跳转403，加上.prevent修饰符 403 就不会触发了，只要做了提交，没有发出
+       -->
+       <form action="baidu">
+         <input type="submit" value="提交" @click.prevent="submitClick">
+       </form>
+       <br/>
+
+
+       <!--3.监听某个键盘的建帽； 
+            <input type='text' v-on:keyup="keyup">
+        -->
+        <input type="text" @keyup="keyUp">
+        <br/>
+        <!-- 敲击 enter 时触发 -->
+        <input type="text" @keyup.enter='keyUpEnter'>
+        <br/>
+
+
+        <!-- 4.  .once修饰符的使用，某些东西只触发一次 -->
+        <button @click.once='btn2Click'>我只能触发一次监控事件</button>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿'
+        },
+        methods: {
+          btnClick() {
+            console.log("btnClick")
+          },
+          divClick() {
+            console.log("divClick")
+          },
+          submitClick() {
+            console.log('submitClick');
+          },
+          keyUp() {
+            console.log('keyUp');
+          },
+          keyUpEnter() {
+            console.log('keyUpEnter');
+          },
+          btn2Click() {
+            console.log('btn2Click');
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
