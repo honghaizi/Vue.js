@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>vue小功能案例01</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        要求点击那个点击那个元素，那个元素变红色
+        动态类，实现方法动态匹配，监听事件；
+        多敲！多敲！多敲！
+     -->
+
+     <style>
+       .active{
+          color: red;
+       }
+     </style>
+  </head>
+
+  <body>
+    <div id="axx">
+      <ul>
+        <li v-for="(item, index) in movies"
+            :class="{active: currentIndex === index }" 
+            @click='liClick(index)' 
+        >{{items}}</li>
+      </ul>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          movies: ['红楼梦','西游记','水浒传','三国演义','大秦帝国之纵横'],
+          //用于匹配索引值
+          currentIndex: 0,
+        },
+        methods: {
+          liClick(index) {
+            this.currentIndex = index
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
