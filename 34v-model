@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-model 的基本使用</title>
+    <script src="lib/vue.js"></script>
+    <!-- 表单绑定 v-model
+        v-model指令来实现表单元素和数据的双向绑定
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <input type="text" v-model='message'>
+      {{message}}
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿1嘿'
+        }
+      })
+    </script>
+  </body>
+</html>
