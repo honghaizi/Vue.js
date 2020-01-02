@@ -1,0 +1,60 @@
+购物车案例
+
+1.创建并案例所需页面 JS 和样式；
+  1.1 创建相应的文件：index.html - main.js  -  style.css
+  1.2 在 index.html 引入 vue.js main.js 和 style.css
+  1.3 样式是偷的；
+
+2.搭建项目框架
+  2.1 index.html 中创建设计表的结构（div>table>thead>tr>th   tbody>tr>td  <button>）；
+  2.2 main.js 中创建一个 Vue 对象来绑定 id ，存放数据；
+
+3.搭建基本框架，展示数据
+  3.1 tr 标签中的 v-for 不能直接遍历 books 中的数据，因为里面都是数组，遍历结果是字符串；
+  3.2 tr-td-vfor 遍历 tr-vfor-item  ，就可以直接获取到正确的数据了； 不建议，因为每个属性可能都有更改添加操作；
+  3.3 从 tr-vfor-item 中单独获取数据的信息； 从 tr>td  item.id .. td item.name .. td <button> item.name <button>中获取数据
+
+4.细节处理
+  4.1 因为价格 ￥ 和 保留两位小数要重复使用 toFixed(2) ，
+        {{'￥' + item.price.toFixed(2)}}
+        单个唯一标签使用还行，如果多处使用，不建议，会增加代码量
+        其它方法
+        方法实现 methods: {getFinalPrice(price) {return '￥' + price.toFixed(2);}
+        <td>{{getFinalPrice(item.price)}}</td>
+  4.2 这里创建过滤器；  选择
+        filters: { showPrice(price) { return '￥' + price.toFixed(2); } }
+        <td>{{item.price | showPrice}}</td>
+
+5.购买数量的增减
+  5.1 增加事件监听功能
+        <td><button @click="decrement(index)">-</button> {{item.count}} </td>
+  5.2 获取到数组下标 index，,v-for 增加 index 通过传递下标对应数组进行操作；
+         methods: { increment(index) {this.books[index].count++ } }
+  5.3 设置 动态绑定disabled属性 增减中减的下限为 1；
+      <button @click="decrement(index)"  v-bind:disabled="item.count <= 1">-</button>
+
+6.移除操作
+  6.1 获取到直接从books对象中下标起步  splice
+      removeHandle(index) { this.books.splice(index, 1)}
+      <td><button @click="removeHandle(index)">移除</button></td>
+
+7.购物车清空后，现实“购物车已经清空，你真厉害！”
+  7.1 把table嵌套到div中，然后 v-if(这里是数据的长度 原理是只要不负数就代表真)  v-else
+      div>div>table
+       <div v-if="books.length"> <table...> </div>  <h2 v-else>购物车清空了</h2>
+
+8.计算总价格
+  8.0 因为这个是反复操作的，所以使用计算属性
+  8.1 let totalPrice = 0; 存放总价格
+  8.2 遍历books中的元素
+  8.3 总价格 += books[i].价格 * books[i].个数
+  8.4 return totalPrice;
+
+    computed: {
+        totalprice() {
+         let totalPrice = 0;
+          for (let item of this.books) {
+            totalPrice += item.price * item.count
+          }
+          return totalPrice;
+        }
