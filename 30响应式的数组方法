@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>响应式的数组有哪些</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        因为Vue是响应式的，所以当数组发生变化时，vue会自动检车数组数据变化，试图会发生对应的更新；
+        vue中包含了一组观察数组编译方法，使它们改变数组也会触发试图的更新；
+        push()、pop()、shift()、unshift()、splice()、sort()、reverse()
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <ul>
+        <li v-for='items in letters'>{{items}}</li>
+      </ul>
+      <button @click='btnClick0()'>从后面依次添加元素</button>
+      <button @click='btnClick1()'>通过索引值修改数组中的元素(非响应式)</button><br/>
+      <button @click='btnClick2()'>删除数组中的最后一个元素</button>
+      <button @click='btnClick3()' >删除数组中的第一个元素</button>
+      <button @click='btnClick4()' >在数组最前面添加元素</button>
+      <button @click='btnClick5()' >我是优秀的seplice</button><br/>
+      <button @click='btnClick6()' >我是排序操作，我懒得动..</button>
+      <button @click='btnClick7()' >看我排山倒海哈哈哈</button>
+      <button @click='btnClick8()' >我没有放弃你 非响应式！</button>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          letters: ['a','b','c','d',]
+        },
+        methods: {
+          btnClick0() {
+            //0. push 方法，可以传递多个参数(响应式)
+            //this.letters.push('aaa');
+            this.letters.push('aaa','bbb','ccc','ddd');
+          },
+          btnClick1() {
+            //1.通过索引值修改数组中的元素(非响应式)
+            this.letters[0] = "bbbbbbb";
+          },
+          btnClick2() {
+            //2. pop() 删除数组中的最后一个元素(响应式)
+            this.letters.pop();
+          },
+          btnClick3() {
+            //3. shift() 删除数组中的第一个元素(响应式)
+            this.letters.shift();
+          },
+          btnClick4() {
+            //4. unshift 在数组最前面添加元素(响应式)
+            //this.letters.unshift('aaa')
+            this.letters.unshift('ddd','sss','aaa',);
+          },
+          btnClick5() {
+            /*
+              .splice作用: 删除元素、插入元素、替换元素
+              删除元素:第二个参数是传入要删除几个元素,如果没有传，就删除后面所有的元素
+                splice(1);  从数组下标 1 开始删除全部删除；
+                splice(1, 2);  从数组下标 1 始删除后面两个；
+              替换元素:第二个参数，表示要替换几个元素，后面是用于替换前面的元素；
+                splice(1,2,'s','d'); 从数组下标1开始替换后面两个 s d ；
+              插入元素：第二个参数传入0，并且后面跟上要插入的元素
+                splice(1, 0, "s","f","L"); 从素组下标 1 后添加 s d;
+            */
+            this.letters.splice(1, 2,"s","f");
+          },
+          btnClick6() {
+            //6. sort 排序
+            this.letters.sort();
+          },
+          btnClick7() {
+            //7. reverse 倒序
+            this.letters.reverse();
+          },
+          btnClick8() {
+            /* 8. 通过索引值修改数组中的元素
+                  因为Vue里面没有实现这种方式，所以非响应式；
+                  this.letters[0] = 'bbbbbbb';
+                可以通过响应式的方法来实现响应式
+                第一种：this.letters.splice(0, 1, 'bbbbbbb');
+                第二种：set(要修改的对象, 索引值, 修改后的值)
+             */
+            // this.letters[0] = 'bbbbbbb';
+            // this.letters.splice(0, 1, 'bbbbbbb');
+            Vue.set(this.letters, 0, 'bbbbbbb');
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
