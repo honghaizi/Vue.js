@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>v-mode_redio</title>
+    <title>v-model_redio</title>
     <script src="lib/vue.js"></script>
+    <!-- 
+        v-model 绑定同一个变量后可以省去 name='sex'
+        结果依然是互斥的
+     -->
   </head>
 
   <body>
@@ -11,7 +15,7 @@
         <input type="radio" id='male' name='sex' value="男" v-model='sex'>男
       </label>
       <label for="male">
-        <input type="radio" id='male' name='sex' value="女" v-model='sex'>女
+        <input type="radio" id='male'  value="女" v-model='sex'>女
       </label>
       <h2>您悬着的性别是: {{sex}}</h2>
     </div>
