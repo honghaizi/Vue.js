@@ -25,7 +25,8 @@
         el: "#axx",
         data: {
           message: '嘿嘿嘿',
-          sex:""
+          sex:"",
+          // sex:'男' 可以这个设置默认值
         }
       })
     </script>
