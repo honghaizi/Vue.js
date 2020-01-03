@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>model值绑定</title>
+    <script src="lib/vue.js"></script>
+    <!--值绑定  what the hell is that?
+        就是动态给value赋值而已
+        之前的value中的值都是在定义input时直接给定的；
+        真实开发中，这些input的值可能都是从服务器中获取定义的；
+        所以可以通过v-bind:value动态的给value绑定值
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <label v-for='items in originHobbies' :for='items'>
+        <input type="checkbox" :id='items' :value='items' v-model='hobbies'>{{items}}
+      </label>
+      <h2> 您选的是：{{hobbies}} </h2>
+    </div>
+    
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          hobbies: [],
+          //模拟服务器数据
+          originHobbies: ['DF17','足球','羽毛球','乒乓球','网球','白杨3']
+        }
+      })
+    </script>
+  </body>
+</html>
