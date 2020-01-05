@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>注册组件的语法糖</title>
+    <script src="lib/vue.js"></script>
+    <!-- 注册组件的语法糖
+        Vue为了简化这个过程，提供了注册的语法糖。
+        主要是省去了调用Vue.extend()步骤,而是可以直接
+        使用一个对象来代替。其实内部还是.. 呸 渣代码
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <!-- 里面内容不会输出 -->
+      <h2> <cpn1>里面内容也不会输出</cpn1> </h2>
+
+      <!-- 局部 -->
+      <cpn2></cpn2>
+    </div>
+    
+    <script>
+      //1.全局组件注册的语法糖(内部还是调用的extend())
+      //2.创建组件构造器 省略掉了
+      
+      //3.语法糖注册全局组件
+      Vue.component('cpn1',{
+        template:
+        `
+          <div>
+            <h2> 我是cpnC1 </h2>
+            <p>我是我是组件构造器</p>
+            <p>哈哈哈哈哈哈哈哈哈</p>
+          </div>
+        `
+      })
+      
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿'
+        },
+        //局部语法糖注册
+        components: {
+          'cpn2': { //注意这里是 : 不是 ,
+            template:
+            `
+              <div>
+                <h2> 我是cpnC2 </h2>
+                <p>我是我是组件构造器</p>
+                <p>哈哈哈哈哈哈哈哈哈</p>
+              </div>
+            `
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
