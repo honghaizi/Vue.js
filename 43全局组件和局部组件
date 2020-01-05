@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>全局组件和局部组件</title>
+    <script src="lib/vue.js"></script>
+    <!-- 全局组件和局部组件
+        在Vue实例外创建的组件是全局组件，反之亦然，局部；
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <cpn></cpn>
+      <cpn></cpn>
+      <cpn></cpn>
+    </div>
+
+    <!-- 演示全局组件的作用 -->
+    <div id='axx2'>
+      <cpn>演示全局组件的作用</cpn>
+    </div>
+    
+    <script>
+      //1.创建组件构造器
+      const cpnC = Vue.extend({
+        template: 
+        `
+          <div>
+            <h2> 我是全局组件 </h2>
+            <p>我是全局组件内容</p>
+            <p>我是全局组件内容</p>
+          </div>        
+        `
+      })
+
+      //2.注册组件(全局组件。可以在多个Vue实例下面使用)
+      //Vue.component('cpn', cpnC)
+
+      //局部组件注册，需到某个Vue实例下注册
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿'
+        },
+        //局部组件注册
+        components: {
+          // cpn使用组件时标签名，cpnC组件构造器
+          cpn: cpnC
+        }
+      })
+
+      //演示全局组件的作用
+      const axx2 = new Vue({
+        el: '#axx2',
+        data: {
+
+        }
+      })
+    </script>
+  </body>
+</html>
