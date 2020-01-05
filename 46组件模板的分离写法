@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>组件模板的分离写法</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        把HTML内容分离出来些，然后挂载到对应组件上，必然结构会非常清晰；
+        1.script标签，注意:类型必须是"text/x-template"；
+        2.template标签 ；
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <h2> <cpn></cpn> </h2>
+      <cpnx></cpnx>
+    </div>
+    
+    <!-- 1.script标签，注意:类型必须是"text/x-template"-->
+    <script type="text/x-template" id="cpn">
+      <div>
+        <h2> 我是cpnC2 </h2>
+        <p>我是我是组件构造器</p>
+        <p>哈哈哈哈哈哈哈哈哈</p>
+      </div>
+    </script>
+
+    <!-- 2.template标签 -->
+    <template id="cpnx">
+      <div>
+        <h2> 我是cpnx </h2>
+        <p>我是我是组件构造器</p>
+        <p>哈哈哈哈哈哈哈哈哈</p>
+      </div>
+    </template>
+
+    <script>
+      //1.注册一个全局组件
+      Vue.component('cpn',{
+        template: '#cpn' //绑定
+      })
+
+      //注册一个全局组件
+      Vue.component('cpnx',{
+        template: '#cpnx' //绑定
+      })
+
+
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿'
+        }
+      })
+    </script>
+  </body>
+</html>
