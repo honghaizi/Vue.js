@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>组件中的data必须是函数问题</title>
+    <script src="lib/vue.js"></script>
+    <!-- 为什么data在组件中必须是一个函数呢?
+        如果不是一个函数，Vue直接就会报错；
+        原因是在于Vue让每个组件对象都返回一个
+        新的对象，如果是同一个对象的，组件多次
+        使用后会互相影响。
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <cpnx></cpnx>
+      <cpnx></cpnx>
+      <cpnx></cpnx>
+    </div>
+    
+    <template id="cpnx">
+      <div>
+        <h2>当前计数: {{counter}}</h2>
+        <button @click='increment'>+</button>
+        <button @click='decrement'>-</button>
+      </div>
+    </template>
+
+    <script>
+     //1.注册逐渐
+     Vue.component('cpnx',{
+       template: '#cpnx',
+      /*
+        1.返回的是一个函数，函数能保证里面的唯一性
+          也就是内存地址是唯一存在的（C指针概念）
+          每次调用函数的时候，都会从新创建一个新的内存
+          地址用于存储数据；
+        2.返回如果不是一个数组而是一个普通对象，是不能
+          保证数据返回唯一性的，会以最后赋值的数据为准
+          来返回到一个主对象中，方法使用中之前的值都会
+          互相影响覆盖，不能保证唯一性；
+        3.组件不可能这个页面使用的时候，其它页面同样的
+          组件受到影响改变，所有在这里使用的是函数方法。
+      */
+       data() {
+         return {
+           counter: 0
+         }
+        },
+         methods: {
+           increment() {
+             this.counter++
+           },
+           decrement() {
+             this.counter--
+           }
+         }
+     }) 
+    
+
+
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿'
+        }
+      })
+    </script>
+  </body>
+</html>
