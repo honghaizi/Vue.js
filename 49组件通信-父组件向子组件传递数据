@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>组件通信-父组件向子组件传递数据</title>
+    <script src="lib/vue.js"></script>
+    <!-- 父子组件的通信
+        子组件是不能引用父组件或者Vue实例的数据；
+        开发中，往往一些数据确实需要从上层传递到下层:
+        比如在一个页面中，从服务器请求到了很多的数据；
+        其中一部分数据，并非是整个页面的大组件来展示的，而是
+        需要下面子组件进行展示；
+        这个时候，并不会让子组件再次发送一个网络请求，而是直接
+        让大组件(父组件)将数据传递给小组件(子组件)；
+
+        父子组件之间的通信
+          通过props(properties 属性)向组件传递数据；
+          通过时间向父组件发送消息；
+        真实开发中，Vue实例和子组件的通信和父组件的通信过程
+        是一样的；
+
+        Props基本用法：使用选项props来声明需要从父级接收到的数据；
+        Props的值有两种方式：
+          方式一: 字符串数组，数组中的字符串就是传递时的名称；
+          方式二：对象，对象设置传递时的类型，也可以设置默认值等。
+
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <!-- 这里传递数据一定要用 v-bind -->
+      <cpn v-bind:cmovies="movies" :cmessage='message'></cpn>
+      <!-- 如果不用动态绑定，输出是字符串输出后面的变量名“movies”
+        <cpn cmovies="movies" cmessage='message'></cpn> -->
+    </div>
+
+    <template id='cpn'>
+      <div>
+        <ul>
+          <li v-for="items in cmovies">{{items}}</li>
+        </ul>
+        <h2>{{cmessage}}</h2>
+      </div>
+    </template>
+    
+    <script>
+      //外写方面看代码
+      const cpn = {
+       template: `#cpn`, //绑定组件
+       // 方式一: 字符串数组
+       props:['cmovies','cmessage'],
+       data(){
+         return{} //
+       },
+       methods: {
+
+       }
+      }
+
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          movies: ['海王','嘴强王','海尔兄弟']
+        },//祖册局部组件语法糖写法
+        components: {
+          cpn, //增强字面写法
+        }
+      })
+    </script>
+  </body>
+</html>
