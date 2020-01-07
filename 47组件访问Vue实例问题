@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>组件访问Vue实例问题</title>
+    <script src="lib/vue.js"></script>
+    <!-- 组件可以访问Vue实例数据吗？
+        组件内部是不能访问vue实例的数据；
+        即使可以访问，将所有的数据都放在Vue实例中，
+        Vue实例就会变得非常臃肿；
+        组件是一个单独功能模块的封装:
+          这个模块有属于自己的HTML模板，
+          也有属性自己的数据data,也可以有methods等属性;
+          这个data属性必须是一个函数(保证数据的唯一性)；
+          这个函数返回一个对象，对象内部保存着数据       
+
+     -->
+  </head>
+
+   <body>
+    <div id="axx">
+      <cpn></cpn>
+    </div>
+    
+    <!-- template标签 -->
+    <template id="cpn">
+      <div>
+        <h2>{{title}}</h2>
+        <p>我是我是组件构造器</p>
+        <p>哈哈哈哈哈哈哈哈哈</p>
+      </div>
+    </template>
+
+    <script>
+      //1.注册一个全局组件
+      Vue.component('cpn',{
+        template: '#cpn', //绑定
+        // 组件自己存放数据的方式
+        //data: { 不能这样些，报错，原因这里必须是个function
+        //[Vue warn]: The "data" option should be a function that returns a per-instance value in component definitions.
+        data() { //保证数据的唯一性  
+          return { 
+            title: 'abc' //这个函数返回一个对象，对象内部保存着数据 
+          }
+        }
+      })
+
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿'
+        }
+      })
+    </script>
+  </body>
+</html>
