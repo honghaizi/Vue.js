@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>组件通信-父组件向子组件传递数据</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        Props基本用法：使用选项props来声明需要从父级接收到的数据；
+        Props的值有两种方式：
+          方式一: 字符串数组，数组中的字符串就是传递时的名称；
+          方式二：对象，对象设置传递时的类型，也可以设置默认值等。        
+        更多：
+          Vue.component('my-component',
+            props: {
+              //基础的类型检查（'null' 匹配任何类型）
+              propA: Number,
+              //多个可能的类型
+              proPb: [String, Number],
+              //必填的字符串
+              propC: {
+                tyep: String,
+                required: true
+              },
+              //所有默认值的数字
+              propD: {
+                type: Number,
+                default: 100
+              },
+              //带有默认值的对象
+              propE: {
+                type: object,
+                //对象或数组默认值必须从一个工厂函数获取
+                default: function() {
+                  return {message: 'hello'}
+                }
+              },
+              //自定义验证函数
+              propF: {
+                validator: function(value) {
+                  //这个值必须匹配下列字符串中一个
+                  return ['success','warning', 'danger'].indexOf(value) !== -1
+                }
+              }
+            }
+          )
+
+          //自定义类型
+          function Person (firstName, lastName) {
+            this.firstName = firstName
+            this.lastName = lastName
+          }
+
+          Vue.component('blog-post',{
+            props: {
+              author: Person
+            }
+          })
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <cpn :cmessage='message' :cmovies='movies'></cpn>      
+    </div>
+
+    <template id='cpn'>
+      <div>
+        <ul>
+          <li v-for="items in cmovies">{{items}}</li>
+        </ul>
+        <h2>{{cmessage}}</h2>
+      </div>
+    </template>
+    
+    <script>
+      const cpn = {
+       template: `#cpn`, 
+       //方式二：对象方式
+       props: {
+        /*类型限制
+        cmovies: Array, //指定只接收数组类型
+        cmessage: String,*/
+
+        //2.提供一些默认值，以及必传值
+        cmessage: {
+          type: String, //指定只接收数组类型
+          default: 'aaaaaa', //设置默认值
+          requeired: true, //必须传递
+        },
+        //类型是对象或者数组时，默认值必须是一个函数
+        cmovies: {
+          type: Array,
+          default() {
+            return []
+          }
+        } 
+       },
+       data(){
+         return{} //
+       },
+       methods: {
+
+       }
+      }
+
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿',
+          movies: ['海王','嘴强王','海尔兄弟']
+        },//祖册局部组件语法糖写法
+        components: {
+          cpn, //增强字面写法
+        }
+      })
+    </script>
+  </body>
+</html>
