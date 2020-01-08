@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>父子组件通信-子传父(自定义事件)</title>
+    <script src="lib/vue.js"></script>
+    <!-- 子级向父级传递
+        props 用于父组件向子组件传递数据；
+        自定义事件子组件向父组件传递数据；
+        v-on不仅仅可以用于监听DOM事件，
+        也可以用于组件间得自定义事件。
+        自定义事件流程：
+          在子组件中，通过 $emit() 来触发事件；
+          在父组件中，通过 v-on 来监听组件事件。
+     -->
+  </head>
+
+  <body>
+    <!-- 父组件模板 -->
+    <div id="axx">
+      <cpn @itemsclick='cpnClick'></cpn>
+    </div>
+
+    <!-- 子组件模板 -->
+    <template id='cpn'>
+      <div>
+        <!-- 监听按钮点击 反馈给父组件 -->
+        <button v-for='items in categories'
+                @click='itemClick(items)'
+        >{{items.name}}</button>
+      </div>
+    </template>
+    
+    <script>
+      //子组件
+      const cpn = {
+        template: '#cpn',
+        data() {
+          return {
+            categories: [
+              {id: 'aaa', name: '热门推荐'},
+              {id: 'bbb', name: '手机数码'},
+              {id: 'ccc', name: '家用家电'},
+              {id: 'ddd', name: '电脑办公'},
+            ]
+          }
+        },
+        methods: {
+          // 子组件传递
+          itemClick(items) {
+            // console.log(items)
+            //'itemsclick' 不能是驼峰，而起必须和调用者一样命名
+            this.$emit('itemsclick', items)
+          }
+        }
+      }
+
+      //父组件
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          message: '嘿嘿嘿'
+        },
+        components: {
+          cpn
+        },
+        methods: {
+          // 父组件接收
+          cpnClick(items) {
+            console.log('cpnClick', items)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
