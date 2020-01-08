@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>父子组件通信-props驼峰标识</title>
+    <script src="lib/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="axx">
+      <!-- 目前Vue不支持驼峰写法所以报错 
+      <cpn v-bind:cInfo='info'></cpn> -->
+      <!-- 如果使用驼峰命名 需要按照下面操作 -->
+      <cpn v-bind:c-info='info' :child-my-message='message'></cpn>
+    </div>
+
+    <!-- 多个标签须有根部标签，否则报错，所有这里外层加div -->
+    <template id='cpn'>
+      <div> 
+        <h2>{{cInfo}}</h2>
+        <h2>{{childMyMessage}}</h2>
+      </div>
+    </template>
+    
+    <script>
+      const cpn = {
+        template: '#cpn',        
+        props: {//接收得是一个函数
+          cInfo: { //驼峰命名
+            type: Object,
+            default() {
+            //如果是对象 所以必须返回一个函数，保证安全性
+              return {} 
+            }
+          },
+          childMyMessage: {
+            type: String,
+            default: ''
+          }
+        }
+      }
+
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          info: {
+            name: 'why',
+            age: 18,
+            height: 1.88
+          },
+          message: 'hahahahhahah'
+        },
+        components: {
+          cpn
+        }
+      })
+    </script>
+  </body>
+</html>
