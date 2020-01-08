@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>子传父(自定义事件)案例</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        两个按钮+1和-1，点击后修改counter
+        整个操作的过程还是在子组件中完成，但是之
+        后的展示交给父组件。
+        需要将子组件中的counter，传给父组件的某个属性，
+        比如total。
+     -->
+  </head>
+
+  <body>
+    <!-- 父组件模板 -->
+    <div id="axx">
+      <!-- 父组件监听传递过来的数据 -->
+      <child-cpn @increment='changeTotal' @decrement='changeTotal'></child-cpn>
+      <h2>点击次数{{total}}</h2>
+    </div>
+
+    <!-- 子组件模板 -->
+    <template id="childCpn">
+      <div>
+        <!-- 子组件方法调用 -->
+        <button @click='increment'>+1</button>
+        <button @click='decrement'>-1</button >
+      </div>
+    </template>
+    
+    <script>
+
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          total: 0
+        },
+        methods: {
+          changeTotal(counter) {
+            this.total = counter
+          }
+        },
+        components: {
+          'child-cpn': {
+            template: '#childCpn',
+            data() {
+              return {
+                counter: 0
+              }
+            },//子组件方法实现
+            methods: {
+              increment() {
+                this.counter++;
+                //将子组件得方法传递给父组件
+                this.$emit('increment', this.counter)
+              },
+              decrement() {
+                this.counter--;
+                this.$emit('decrement', this.counter)
+              }
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
