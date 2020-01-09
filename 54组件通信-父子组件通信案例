@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>组件通信-父子组件通信案例</title>
+    <script src="lib/vue.js"></script>
+    <!-- 
+        1，父组件定义 num1 和 num2；
+        2. 创建子组件和子模板；
+        3. 父组件的 num1 和 num2 传递到子组件获取显示；
+        4. 实现子组件数据显示的双向绑定；
+        5. 将子组件获取的值传递到父子组件中实现双向数据同步显示；
+        
+        6. number1的值发生改变同时修改的number2的值；
+           number1发生改变 number2的值 * 100
+           number2发生改变 number1的值 / 100        
+     -->
+  </head>
+
+  <body>
+    <div id="axx">
+      <cpn :number1='num1' 
+           :number2='num2'
+           @num1change="num1change"
+           @num2change="num2change"
+      />
+    </div>
+    
+    <template id='cpn'>
+      <div>
+        <!-- <input type='text' v-model='number1'>
+        报错 ：Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders.
+        避免直接改变属性，因为当父组件重新呈现时，该值将被覆盖；
+        大概意思不能在直接用v-model，会导致数据不准确或者被覆盖；
+        Instead, use a data or computed property based on the prop's value.
+        如果要实现这种操作，建议在子组件下使用data来定义，保证正确安全性，
+        -->
+        <!--  <input type='text' v-model='dnumber1'>
+        单纯子组件中双向绑定数据发生了改变，但是父组件中值无法发生改变；
+        需要改善方法，将子组件的值传到父组件中，才能实现真正意义的父子双向同时改变。
+        -->
+        <h2>props:{{number1}}</h2>
+        <h2>dnumber1:{{dnumber1}}</h2>
+        <!--建议写成方法 @input="dnumber1=$event.target.value"-->
+        <input type='text' v-bind:value="dnumber1" @input="num1Input">
+
+        <h2>props:{{number2}}</h2>
+        <h2>dnumber2:{{dnumber2}}</h2>
+        <input type='text' :value="dnumber2" @input="num2Input">
+      </div>
+    </template>
+
+    <script>
+      const axx = new Vue({
+        el: "#axx",
+        data: {
+          num1: 1,
+          num2: 0
+        },
+        methods: { //接收子组件传递过来的数据
+          num1change(value) {        
+            /*获取value默认字符串类型：
+            console.log(typeof value);// String
+            this.num1 = value
+            子组件中设定默认接收类型：Number
+             所以输出出现类型错误的异常，转换类型即可解决
+            */
+            console.log(typeof value);
+            this.num1 = parseFloat(value); //将value值转换为 Float类型
+          },
+          num2change(value) {
+            this.num2 = parseFloat(value);
+          }
+        },
+        components: {
+          cpn: {
+            template: '#cpn',//注册组件
+            props: { //获取父组件值
+              number1: Number,//接收类型
+              number2: Number
+            },
+            data() {
+              return {
+                dnumber1: this.number1,
+                dnumber2: this.number2,
+              }
+            },
+            methods: {
+              num1Input(event) {
+                //1.将input中的value赋值到dnumber中
+                this.dnumber1 = event.target.value;
+
+                //2.为了让父组件可以修改值，发出一个事件
+                //将获取到的数据事件传递到父组件中
+                this.$emit('num1change', this.dnumber1);
+
+                //3.同时修改的number2的值 * 100
+                this.dnumber2 = this.dnumber1 * 100;
+                //获取修改后的值传入到父组件
+                this.$emit('num2change', this.dnumber2);
+              },
+              num2Input(event) {
+                this.dnumber2 = event.target.value;
+                this.$emit('num2change', this.dnumber2);
+                this.dnumber1 = this.dnumber2 / 100;
+                this.$emit('num1change', this.dnumber1);
+              }
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
